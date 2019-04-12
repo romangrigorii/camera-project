@@ -1,0 +1,46 @@
+**** COMPONENTS AND NOTES FOR CLOCKING TCD1701 CCD CAMERS
+
+delay line : https://www.digikey.com/product-detail/en/maxim-integrated/DS1100Z-25/DS1100Z-25-ND/1017708
+adapter    : https://www.digikey.com/products/en?mpart=PA0006&v=315
+adapter    : https://www.digikey.com/products/en?mpart=PA0034&v=315
+adapter    : https://www.digikey.com/products/en?mpart=PA0087&v=315
+adapter    : https://www.digikey.com/products/en?mpart=PA0020&v=315
+microcontro: https://www.digikey.com/product-detail/en/microchip-technology/PIC32MX130F064B-I-SS/PIC32MX130F064B-I-SS-ND/3046637
+inverter(s): https://www.digikey.com/product-detail/en/diodes-incorporated/74LVC1G04W5-7/74LVC1G04W5-7DICT-ND/2330115
+inverter   : https://www.digikey.com/product-detail/en/texas-instruments/SN74F04N/296-3542-5-ND/373668
+and gate(s): https://www.digikey.com/product-detail/en/diodes-incorporated/74LVC1G08SE-7/74LVC1G08SE-7DICT-ND/2330103
+and gate   : https://www.digikey.com/product-detail/en/texas-instruments/SN74F21N/296-33899-5-ND/1570160
+or gate    : https://www.digikey.com/product-detail/en/texas-instruments/SN74F32N/296-3583-5-ND/373722
+150 pF  (s): https://www.digikey.com/product-detail/en/avx-corporation/08055A151FAT2A/478-6219-1-ND/2391418
+200 pF  (s): https://www.digikey.com/product-detail/en/avx-corporation/06035A201FAT2A/478-6030-1-ND/2208944
+300 pF  (s): https://www.digikey.com/product-detail/en/avx-corporation/08055A301FAT2A/478-6220-1-ND/2391419
+100 pF     : https://www.digikey.com/product-detail/en/kemet/C315C101F5G5TA/399-13947-ND/6562358
+100 ohm    : https://www.digikey.com/product-detail/en/yageo/RC0201FR-07100RL/311-100MCT-ND/1948966
+diode   (s): https://www.digikey.com/product-detail/en/panasonic-electronic-components/DB2S31000L/DB2S31000LCT-ND/2326095
+diode      : https://www.digikey.com/product-detail/en/vishay-semiconductor-diodes-division/BAT42-TR/BAT42CT-ND/3104368
+header pins: https://www.digikey.com/product-detail/en/preci-dip/801-87-050-10-001101/1212-1218-ND/3757468
+header pins: https://www.digikey.com/product-detail/en/samtec-inc/SSA-132-S-T/SAM1122-32-ND/1105784
+1K ohm pot : 
+op amp     : https://www.digikey.com/product-detail/en/microchip-technology/MIC920YC5-TR/576-4560-1-ND/4805777
+in amp     : https://www.digikey.com/product-detail/en/renesas-electronics-america-inc/EL5177IYZ/EL5177IYZ-ND/936189
+
+
+** NOTES **
+The very basic method of reading data from the CCD chip resulted in 770Hz position update.
+Theorietically, some very minor updates will bring this to 1100Hz. 
+
+The goal is to stream data faster. 
+
+The plan: 
+Cliock the chip at 20MHz. Position curve will be updated at 5200Hz
+which produces 3846 clock cycles per curve. SH goes low for 3826 cycles and goes high for 20. 
+The output pins will contain lowpassed position curve 
+
+1) 
+Create an SH signal seperate from clocking
+2) 
+Start at SH = 1. Create SH signal by initiaing interrupt based on clock input. 
+Let SH go low.
+Count the necessary counts.
+Let SH go high. 
+ 
